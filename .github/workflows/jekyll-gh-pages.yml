@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write # Changed to 'write' for deployment
   pages: write
   id-token: write
 
@@ -47,10 +47,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: web-build
-          path: build/web
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/web
+          publish_dir: web-build # Matches the artifact name
+          keep_files: true # Optional: keeps existing files in the branch
