@@ -4,9 +4,7 @@ import 'package:intl/intl.dart'; // For date formatting
 
 Future<void> uploadToDropbox(Map<String, dynamic> data) async {
   final url = Uri.parse('https://content.dropboxapi.com/2/files/upload');
-  const accessToken =
-      "sl.CBz6iayTMhFy4MXpAmfNO4PWLQxnHtwmxThIUIsO_IZPOgDZwOS1MO5uEvMghJDlyBYmNBamEz4zIJWAjPtRCJPHSZIEIeTbSAw0ZEWGZ2howriQlvKHpdGW8gtgZ3xGbRMzcFnZImJ43O9ofnVu";
-
+  const accessToken = " accessToken"; // Replace with your token
   // Generate a unique file name based on the current date and time
   final timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
   final fileName = 'patient_data_$timestamp.json';
