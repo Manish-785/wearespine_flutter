@@ -2,11 +2,11 @@ name: Deploy Flutter Web to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
-  workflow_dispatch:
+    branches: ["main"] # Trigger workflow on push to the main branch
+  workflow_dispatch: # Allow manual triggering
 
 permissions:
-  contents: write # Changed to 'write' for deployment
+  contents: write
   pages: write
   id-token: write
 
@@ -15,21 +15,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.5' # Specify your Flutter version
+          flutter-version: 'stable' # Use the stable Flutter version
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build web
+      - name: Build Flutter Web
         run: flutter build web
 
-      - name: Upload artifact
+      - name: Upload Web Build Artifact
         uses: actions/upload-artifact@v3
         with:
           name: web-build
@@ -40,10 +40,10 @@ jobs:
     needs: build
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Download artifact
+      - name: Download Web Build Artifact
         uses: actions/download-artifact@v3
         with:
           name: web-build
@@ -52,5 +52,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: web-build # Matches the artifact name
-          keep_files: true # Optional: keeps existing files in the branch
+          publish_dir: web-build
