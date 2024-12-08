@@ -22,12 +22,10 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.24.5' # Use the stable Flutter version
-      
-      - name: Clean Previous Build
-        run: flutter clean
-      - name: Build Flutter Web
-        run: flutter build web
-        
+      - uses: bluefireteam/flutter-gh-pages@v8
+        with: 
+            baseHref: /dot_guide_pano/
+            webRenderer: canvasKit
       - name: Install Dependencies
         run: flutter pub get
 
