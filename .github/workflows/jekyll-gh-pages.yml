@@ -18,20 +18,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - name: Flutter action
+        uses: subosito/flutter-action@v2.18.0
         with:
-          flutter-version: '3.24.5' # Use the stable Flutter version
-      - uses: bluefireteam/flutter-gh-pages@v8
-        with: 
-            baseHref: /dot_guide_pano/
-            webRenderer: canvasKit
-      - name: Install Dependencies
-        run: flutter pub get
-
-      - name: Build Flutter Web
-        run: flutter build web
-
+          channel: stable
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build web
+  
       - name: Upload Web Build Artifact
         uses: actions/upload-artifact@v3
         with:
